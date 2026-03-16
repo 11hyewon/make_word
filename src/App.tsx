@@ -113,6 +113,7 @@ export default function App() {
   const [particles, setParticles] = useState<Particle[]>([]);
   const nextId = useRef(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -346,6 +347,9 @@ export default function App() {
       style={{
         fontFamily: "'Space Mono', 'Google Sans Code', monospace",
       }}
+      onClick={() => {
+        hiddenInputRef.current?.focus();
+      }}
     >
       {/* Top collected words */}
       <div className="collectionArea pointer-events-none select-none">
@@ -568,7 +572,6 @@ export default function App() {
             ref={inputRef}
             className="textInput"
             value={typed}
-            readOnly
             onKeyDown={handleInputKeyDown}
             placeholder="A–Z"
             inputMode="none"
@@ -581,6 +584,26 @@ export default function App() {
           </span>
         </div>
       </div>
+
+      {/* Hidden input for mobile virtual keyboard */}
+      <input
+        ref={hiddenInputRef}
+        type="text"
+        className="textInput"
+        style={{
+          position: 'fixed',
+          opacity: 0,
+          pointerEvents: 'none',
+          bottom: 0,
+          left: 0,
+          width: 1,
+          height: 1,
+        }}
+        onKeyDown={handleInputKeyDown}
+        onChange={(e) => {
+          e.target.value = '';
+        }}
+      />
     </div>
   );
 }

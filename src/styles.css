@@ -185,7 +185,7 @@ body {
   background: transparent;
   color: #FFFFFF;
   font: inherit;
-  font-size: 0.95rem;
+  font-size: 16px; /* prevent mobile zoom */
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.92;
